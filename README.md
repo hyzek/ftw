@@ -1,2 +1,2 @@
 # ftw
-FTW
+FTW at ftw.icu
