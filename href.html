@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        // Function to get query parameters from URL
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Set the initial countdown value
+        let countdown = 5;
+
+        function startCountdown() {
+            // Get the 'url' query parameter from the URL
+            const targetUrl = getQueryParam('url');
+            
+            // If the URL is missing, show an error and return
+            if (!targetUrl) {
+                document.getElementById('message').textContent = 'Error: No URL provided for redirection.';
+                return;
+            }
+
+            // Update the countdown every 1 second
+            const countdownTimer = setInterval(() => {
+                document.getElementById('countdown').textContent = countdown;
+                
+                // If the countdown reaches zero, redirect the user
+                if (countdown <= 0) {
+                    clearInterval(countdownTimer);
+                    window.location.href = targetUrl;
+                }
+
+                // Decrease the countdown value
+                countdown--;
+            }, 1000);
+        }
+    </script>
+</head>
+<body onload="startCountdown()">
+
+    <h1 id="message">Redirecting in <span id="countdown">5</span> seconds...</h1>
+    <p>If you are not redirected, <a id="redirectLink" href="#">click here</a>.</p>
+
+    <script>
+        // Dynamically set the link href to the target URL if available
+        const targetUrl = getQueryParam('url');
+        if (targetUrl) {
+            document.getElementById('redirectLink').href = targetUrl;
+        }
+    </script>
+</body>
+</html>
